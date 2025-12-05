@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeni Yıl Mesajı</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #282c34;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        .message-container {
+            text-align: center;
+        }
+
+        #message {
+            font-size: 40px;
+            font-weight: bold;
+            animation: colorChange 5s infinite alternate, scaleMessage 2s infinite alternate;
+        }
+
+        @keyframes colorChange {
+            0% {
+                color: #ff6347; /* Tomato */
+            }
+            25% {
+                color: #f39c12; /* Yellow */
+            }
+            50% {
+                color: #2ecc71; /* Green */
+            }
+            75% {
+                color: #3498db; /* Blue */
+            }
+            100% {
+                color: #9b59b6; /* Purple */
+            }
+        }
+
+        @keyframes scaleMessage {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            color: red;
+            animation: heartAnimation 2s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes heartAnimation {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+                top: 90%;
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5);
+            }
+            100% {
+                opacity: 0;
+                top: 0;
+                transform: scale(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="message-container">
+        <h1 id="message">Herkes Yeni Yıla Sen Yıllarıma</h1>
+    </div>
+    <div class="hearts" id="hearts"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const heartsContainer = document.getElementById('hearts');
+
+            // Fonksiyon: Kalp ekleme
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.textContent = '❤️';
+
+                // Rastgele bir konum seç
+                const randomX = Math.random() * window.innerWidth;
+                const randomDuration = Math.random() * 2 + 1;  // Kalp animasyonu süresi 1-3 saniye arasında olacak
+                heart.style.left = `${randomX}px`;
+
+                // Kalp animasyonunu başlat
+                heart.style.animationDuration = `${randomDuration}s`;
+
+                // Kalbi ekrana yerleştir
+                heartsContainer.appendChild(heart);
+
+                // Kalbi animasyonun bitiminde kaldır
+                setTimeout(() => {
+                    heartsContainer.removeChild(heart);
+                }, randomDuration * 1000);
+            }
+
+            // Kalp oluşturma fonksiyonunu her 300ms'de bir çağır
+            setInterval(createHeart, 300);
+        });
+    </script>
+</body>
+</html>
